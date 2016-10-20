@@ -15,7 +15,7 @@ module.exports = function(opts) {
     onProcess: opts.onProcess,
     onFailure: opts.onFailure,
     retryLimit: opts.retryLimit,
-    conditionFn: conditionFn
+    conditionFn: opts.conditionFn
   });
 
   var processCronJob = retryQueueCron.createJob({
