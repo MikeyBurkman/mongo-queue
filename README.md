@@ -2,6 +2,17 @@
 
 Allows using MongoDB as a persistent queue of sorts.
 
+## Why?
+Sometimes you have a Mongo instance lying around and you use what you have.
+
+## Features
+* Persistent queue
+* Configurable failure retry
+* In-order processing of records
+* Configurable batch size limit to throttle processing
+* Configurable processing for records which have failed too many times
+* Automatic cleanup of completed records
+
 ## Example
 
 ```js
@@ -80,13 +91,10 @@ Creates a new queue instance. Options can contain:
 * mongoUrl - MongoDB URL to connect to.
 * collectionName - Name for a collection, e.g 'jobs'
 * batchSize - Size of a batch to read into memory each tick of the queue
-* maxRecordAge - Max age of an entry in milliseconds. If this entry age exceeds
-this then it will be removed when the cleanup task runs.
+* maxRecordAge - Max age of an entry in milliseconds. If this entry age exceeds this then it will be removed when the cleanup task runs.
 * onProcess - Function to invoke for processing a record. Must return a Promise.
-* onFailure - Function to invoke when a record fails to process _retryLimit_
-times. Must return a Promise.
-* retryLimit - Number of times to try process a record before considering it a
-failure.
+* onFailure - Function to invoke when a record fails to process _retryLimit_ times. Must return a Promise.
+* retryLimit - Number of times to try process a record before considering it a failure.
 * processCron - Cron tab used to determine when to process batches.
 * cleanupCron - Cron tab used to determine when to clean stale data.
 
