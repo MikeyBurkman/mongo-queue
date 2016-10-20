@@ -23,7 +23,7 @@ function processItem (record) {
 }
 
 // Example process function that emails failures
-function processItem (record) {
+function processItemFailure (record) {
   return email({
     subject: format('Failed to process task (%s)', record.id),
     body: format('Data from client was:\n %j', record.data);
