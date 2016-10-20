@@ -4,7 +4,8 @@
   "description": "Use mongo as a persistent queue",
   "main": "index.js",
   "scripts": {
-    "test": "env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL mocha $(find ./lib -name \"*.test.js\")"
+    "eslint": "eslint lib/**/*.js lib/*.js",
+    "test": "npm run eslint && env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL mocha $(find ./lib -name \"*.test.js\")"
   },
   "dependencies": {
     "bluebird": "~3.4.6",
