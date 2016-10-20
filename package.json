@@ -1,0 +1,35 @@
+{
+  "name": "mongo-queue",
+  "version": "1.0.0",
+  "description": "Use mongo as a persistent queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL mocha $(find ./lib -name \"*.test.js\")"
+  },
+  "dependencies": {
+    "bluebird": "~3.4.6",
+    "cron-master": "~0.3.0",
+    "moment": "~2.15.0",
+    "mongodb": "~2.1.21",
+    "node-uuid": "^1.4.7",
+    "xtend": "~4.0.1"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "eslint": "~2.11.1",
+    "mocha": "~2.1.0",
+    "proxyquire": "0.5.3",
+    "sinon": "~1.17.2",
+    "sinon-as-promised": "~4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeyBurkman/mongo-queue.git"
+  },
+  "author": "MikeyBurkman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MikeyBurkman/mongo-queue/issues"
+  },
+  "homepage": "https://github.com/MikeyBurkman/mongo-queue#readme"
+}
