@@ -4,6 +4,7 @@
 
 var retryQueue = require('./lib/queue');
 var retryQueueCron = require('./lib/cron');
+var skip = require('./lib/skip');
 
 module.exports = function(opts) {
 
@@ -37,3 +38,7 @@ module.exports = function(opts) {
   };
 
 };
+
+module.exports.skip = function() {
+  return skip;
+}
