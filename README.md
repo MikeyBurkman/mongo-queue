@@ -86,7 +86,7 @@ be called for each record in _collectionName_ in series.
 ## API
 This module exports a single function that is used to create queue instances.
 
-### queue(options)
+### `require('mongo-queue')(options)`
 Creates a new queue instance. Options can contain:
 
 * mongoUrl - MongoDB URL to connect to.
@@ -99,22 +99,22 @@ Creates a new queue instance. Options can contain:
 * processCron - Cron tab used to determine when to process batches.
 * cleanupCron - Cron tab used to determine when to clean stale data.
 
-### queue.enqueue(obj[, callback])
+### `queue.enqueue(obj[, callback])`
 Add a new Object to the queue for processing. Returns a Promise if a callback
 is not supplied. Returns an error if writing to MongoDB fails.
 
-### queue.processNextBatch([callback])
+### `queue.processNextBatch([callback])`
 Immediately start processing the next batch of items without waiting for a
 "tick" of the job. Calls callback or resolves a returned Promise once complete.
 Will have no effect if called when a batch is currently processing.
 
-### queue.cleanup([callback])
+### `queue.cleanup([callback])`
 Immediately invoke the clean up task to remove records older than
 _maxRecordAge_. If this cleanup is already running then this has no effect.
 Accepts a callback, or returns a promise to indicate completion.
 
 ## Skipping records
-The queue function that is exported also has a `skip()` function attached to it, which can be used like so:
+The queue function that is exported also has a `skip(backoffTime)` function attached to it, which can be used like so:
 ```js
 var mongoQueue = require('mongo-queue');
 
@@ -122,18 +122,15 @@ var mongoQueue = require('mongo-queue');
 
   onProcess: function(record) {
     if (record.sequenceID > currSequenceID) {
-      throw mongoQueue.skip();
+      throw mongoQueue.skip(100);
       // Alternatively, you can also return a rejected Promise:
-      return Promise.reject(mongoQueue.skip()); // Slightly more efficient than throwing
+      return Promise.reject(mongoQueue.skip(100)); // Slightly more efficient than throwing
     }
 
     // Else continue processing
   }
 ```
-This will set the record's status in Mongo to `'skipped'`. It will be picked up for processing 
-again in the next batch, but this processing will not count as a failure or affect its retry count.
+This will set the record's status in Mongo to `'skipped'`. This will not count as an error, or affect the retryCount.
 
-**NOTE**: Make sure the number of records you're skipping is not greater than the 
-batch size, or you'll never get new records to process!
-
-(A future update will allow for specifying a backoff time, to hopefully prevent this from happening.)
+The argument is the number of milliseconds to wait before trying to process again. 
+If not provided, it defaults to 0ms -- it will be eligible for the next batch. 
