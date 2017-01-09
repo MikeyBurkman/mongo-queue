@@ -121,15 +121,18 @@ var mongoQueue = require('mongo-queue');
 ...
 
   onProcess: function(record) {
-    if (record.sequenceID < currSequenceID) {
+    if (record.sequenceID > currSequenceID) {
       throw mongoQueue.skip();
-      // Alternatively, if in a Promise chain, you can use this:
+      // Alternatively, you can also return a rejected Promise:
       return Promise.reject(mongoQueue.skip()); // Slightly more efficient than throwing
     }
 
     // Else continue processing
   }
 ```
+This will set the record's status in Mongo to `'skipped'`. It will be picked up for processing 
+again in the next batch, but this processing will not count as a failure or affect its retry count.
+
 **NOTE**: Make sure the number of records you're skipping is not greater than the 
 batch size, or you'll never get new records to process!
 
