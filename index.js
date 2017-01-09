@@ -39,6 +39,4 @@ module.exports = function(opts) {
 
 };
 
-module.exports.skip = function() {
-  return skip;
-}
+module.exports.skip = skip.skip;
