@@ -12,6 +12,7 @@ Sometimes you have a Mongo instance lying around and you use what you have.
 * Configurable batch size limit to throttle processing
 * Configurable processing for records which have failed too many times
 * Automatic cleanup of completed records
+* Ability to skip a record so it'll processed again later
 
 ## Example
 
@@ -111,3 +112,28 @@ Will have no effect if called when a batch is currently processing.
 Immediately invoke the clean up task to remove records older than
 _maxRecordAge_. If this cleanup is already running then this has no effect.
 Accepts a callback, or returns a promise to indicate completion.
+
+## Skipping records
+The queue function that is exported also has a `skip()` function attached to it, which can be used like so:
+```js
+var mongoQueue = require('mongo-queue');
+
+...
+
+  onProcess: function(record) {
+    if (record.sequenceID > currSequenceID) {
+      throw mongoQueue.skip();
+      // Alternatively, you can also return a rejected Promise:
+      return Promise.reject(mongoQueue.skip()); // Slightly more efficient than throwing
+    }
+
+    // Else continue processing
+  }
+```
+This will set the record's status in Mongo to `'skipped'`. It will be picked up for processing 
+again in the next batch, but this processing will not count as a failure or affect its retry count.
+
+**NOTE**: Make sure the number of records you're skipping is not greater than the 
+batch size, or you'll never get new records to process!
+
+(A future update will allow for specifying a backoff time, to hopefully prevent this from happening.)
