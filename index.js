@@ -4,9 +4,9 @@
 
 var retryQueue = require('./lib/queue');
 var retryQueueCron = require('./lib/cron');
-var skip = require('./lib/skip');
+var utils = require('./lib/utils');
 
-module.exports = function(opts) {
+module.exports = function mongoQueue(opts) {
 
   var queue = retryQueue({
     mongoUrl: opts.mongoUrl,
@@ -16,6 +16,8 @@ module.exports = function(opts) {
     onProcess: opts.onProcess,
     onFailure: opts.onFailure,
     retryLimit: opts.retryLimit,
+    backoffMs: opts.backoffMs,
+    backoffCoefficient: opts.backoffCoefficient,
     conditionFn: opts.conditionFn
   });
 
@@ -39,4 +41,5 @@ module.exports = function(opts) {
 
 };
 
-module.exports.skip = skip.skip;
+module.exports.skip = utils.skip;
+module.exports.fail = utils.fail;
