@@ -10,7 +10,6 @@
   "dependencies": {
     "bluebird": "~3.4.6",
     "cron-master": "~0.3.0",
-    "moment": "~2.15.0",
     "mongodb": "~2.1.21",
     "node-uuid": "^1.4.7",
     "xtend": "~4.0.1"
