@@ -4,23 +4,23 @@
   "description": "Use mongo as a persistent queue",
   "main": "index.js",
   "scripts": {
-    "eslint": "eslint lib/**/*.js lib/*.js",
-    "test": "npm run eslint && env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL BLUEBIRD_DEBUG=true mocha $(find ./lib -name \"*.test.js\")"
+    "lint": "standard --fix lib/**/*.js lib/*.js",
+    "test": "npm run lint && env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL BLUEBIRD_DEBUG=true mocha $(find ./lib -name \"*.test.js\")"
   },
   "dependencies": {
     "bluebird": "~3.4.6",
     "cron-master": "~0.3.0",
     "mongodb": "~2.1.21",
-    "node-uuid": "^1.4.7",
+    "node-uuid": "~1.4.7",
     "xtend": "~4.0.1"
   },
   "devDependencies": {
     "chai": "~3.5.0",
-    "eslint": "~2.11.1",
     "mocha": "~2.1.0",
     "proxyquire": "0.5.3",
     "sinon": "~1.17.2",
-    "sinon-as-promised": "~4.0.2"
+    "sinon-as-promised": "~4.0.2",
+    "standard": "^8.6.0"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/MikeyBurkman/mongo-queue/issues"
   },
-  "homepage": "https://github.com/MikeyBurkman/mongo-queue#readme"
+  "homepage": "https://github.com/MikeyBurkman/mongo-queue#readme",
+  "standard": {
+    "globals": ["it", "describe", "beforeEach"]
+  }
 }
