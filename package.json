@@ -4,7 +4,7 @@
   "description": "Use mongo as a persistent queue",
   "main": "index.js",
   "scripts": {
-    "lint": "standard --fix lib/**/*.js lib/*.js",
+    "lint": "standard --fix",
     "test": "npm run lint && env QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL BLUEBIRD_DEBUG=true mocha $(find ./lib -name \"*.test.js\")"
   },
   "dependencies": {
