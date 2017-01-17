@@ -63,7 +63,7 @@ const taskQueue = queue({
     // The record will not be processed again.
     return email({
       subject: 'Failed to process task:' + record._id,
-      body: 'Data from client was:\n' + JSON.stringify(record.data, null, 2);
+      body: 'Data from client was:\n' + JSON.stringify(record.data, null, 2)
     });
   }
 });
