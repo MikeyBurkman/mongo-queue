@@ -28,6 +28,10 @@ const format = require('util').format;
 const mongoQueue = require('mongo-queue');
 
 const taskQueue = queue({
+  // URL for MongoDB
+  mongoUrl: 'mongodb://localhost:27017/localdb',
+  
+  // Name of the collection that will hold enqueued records
   collectionName: 'task',
 
   // Processes records every minute using the "cron" module
@@ -63,7 +67,7 @@ const taskQueue = queue({
     // The record will not be processed again.
     return email({
       subject: 'Failed to process task:' + record._id,
-      body: 'Data from client was:\n' + JSON.stringify(record.data, null, 2);
+      body: 'Data from client was:\n' + JSON.stringify(record.data, null, 2)
     });
   }
 });
