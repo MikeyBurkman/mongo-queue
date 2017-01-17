@@ -28,6 +28,10 @@ const format = require('util').format;
 const mongoQueue = require('mongo-queue');
 
 const taskQueue = queue({
+  // URL for MongoDB
+  mongoUrl: 'mongodb://localhost:27017/localdb',
+  
+  // Name of the collection that will hold enqueued records
   collectionName: 'task',
 
   // Processes records every minute using the "cron" module
