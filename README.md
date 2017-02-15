@@ -45,7 +45,7 @@ const taskQueue = queue({
 
   // Max age in ms a processed record can be before getting deleted. We're using timestring 
   // to convert 1 day to the number of milliseconds in a day
-  maxRecordAge: timestring('1 day'),
+  maxRecordAge: timestring('1 day', 'ms'),
 
   // Max tries before we invoke the "onFailure" function
   retryLimit: 5,
@@ -53,7 +53,7 @@ const taskQueue = queue({
   // Wait 3 minutes after getting an error before the record can be reprocessed.
   // With the default backoffCoefficient of 1.5, this means records will be
   //  retried after 3 minutes, ~8 minutes, ~15 minutes, etc.
-  backoffMs: timestring('3 minutes'),
+  backoffMs: timestring('3 minutes', 'ms'),
 
   onProcess: function processItem(record) {
     // This will be called for each enqueued record in each batch.
