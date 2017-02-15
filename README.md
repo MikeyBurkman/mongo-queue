@@ -174,3 +174,6 @@ var mongoQueue = require('mongo-queue');
 This will fail the record immediately. It will not be retried, and it will be passed to
 the `onError` handler. The record will get the additional property of `immediateFailure` set to `true`.
 Its `failureReason` value will be set to the `reason` argument.
+
+## Caveats
+* Not multi-thread safe. Having multiple processes or servers running the queue processing code on the same collection can lead to duplicate processing of records.
