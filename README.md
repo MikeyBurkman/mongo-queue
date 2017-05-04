@@ -112,6 +112,7 @@ Defaults to 0, which means no backoff after errors -- the record will be reproce
 * backoffCoefficient - Number for exponentially increasing the backoff time after errors. Defaults to 1.5.
 * processCron - Cron tab used to determine when to process batches.
 * cleanupCron - Cron tab used to determine when to clean stale data.
+* continueProcessingOnError - Set to true to continue processing records even one fails. This will allow for higher throughput, but also allows records to be processed out of order when things fail. Defaults to false. (Defaults to standard queue behavior.)
 
 ### `queue.enqueue(obj[, callback])`
 Add a new Object to the queue for processing. Returns a Promise if a callback
