@@ -16,9 +16,9 @@ module.exports = function mongoQueue (opts) {
     maxRecordAge: opts.maxRecordAge,
     onFailure: opts.onFailure,
     retryLimit: opts.retryLimit,
+    continueProcessingOnError: opts.continueProcessingOnError,
     backoffMs: opts.backoffMs,
-    backoffCoefficient: opts.backoffCoefficient,
-    conditionFn: opts.conditionFn
+    backoffCoefficient: opts.backoffCoefficient
   })
 
   var processCronJob = cron.createJob({
