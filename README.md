@@ -118,7 +118,7 @@ Defaults to 0, which means no backoff after errors -- the record will be reproce
 
 ### `queue.enqueue(obj[, callback])`
 Add a new Object to the queue for processing. Returns a Promise if a callback
-is not supplied. Returns an error if writing to MongoDB fails.
+is not supplied. Rejects if writing to MongoDB fails.
 
 ### `queue.processNextBatch([callback])`
 Immediately start processing the next batch of items without waiting for a
@@ -150,7 +150,9 @@ var mongoQueue = require('mongo-queue');
 This will set the record's status in Mongo to `'skipped'`. This will not count as an error, or affect the retryCount.
 
 The argument is the number of milliseconds to wait before trying to process again. 
-If not provided, it defaults to 0ms -- it will be eligible for the next batch. 
+If not provided, it defaults to 0ms -- it will be eligible for the next batch.
+
+Note that skipping a record will mean that record will NOT be processed in the insertion order. For instance, if the the queue contains records ['A', 'B', 'C'], and 'A' is skipped, the order of processing could then be ['B', 'C', 'A'].
 
 ## Failing records
 The mongoQueue function has a `fail(reason)` function attached to it, which can be used like so:
