@@ -27,9 +27,7 @@
     "prettier-eslint-cli": "~3.4.2",
     "proxyquire": "0.5.3",
     "sinon": "~1.17.2",
-    "sinon-as-promised": "~4.0.2",
-    "supertest": "~0.9.2",
-    "chai": "~3.5.0"
+    "sinon-as-promised": "~4.0.2"
   },
   "engines": {
     "node": ">=4"
