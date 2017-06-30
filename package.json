@@ -1,8 +1,8 @@
 {
   "name": "mongo-queue",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Use mongo as a persistent queue",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "env BLUEBIRD_LONG_STACK_TRACES=1 BLUEBIRD_WARNINGS=1 QUEUE_TEST_URL=mongodb://localhost:27017/QUEUE_LOCAL mocha lib/*.test.js lib/**/*.test.js -t 5000",
     "cover": "nyc --reporter=lcov --produce-source-map=true npm run test",
