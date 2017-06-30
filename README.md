@@ -14,6 +14,7 @@ Sometimes you have a Mongo instance lying around and you use what you have.
 * Automatic cleanup of completed records
 * Ability to skip a record so it'll processed again later
 * Ability to fail a record immediately so it won't be retried
+* Hook to reset records that have failed previously
 
 ## Example
 
@@ -130,6 +131,11 @@ Will have no effect if called when a batch is currently processing.
 Immediately invoke the clean up task to remove records older than
 _maxRecordAge_. If this cleanup is already running then this has no effect.
 Accepts a callback, or returns a promise to indicate completion.
+
+### `queue.resetRecords(records)`
+Resets records to their initial received state, and they will be ready to proccess immediately.
+This is useful for reprocessing certain previously-failed records, after the issue causing them to
+fail has been resolved. `records` is an array of ID strings, representing the `_id` ObjectIds.
 
 ## Skipping records
 The mongoQueue function has a `skip(backoffTime)` function attached to it, which can be used like so:
