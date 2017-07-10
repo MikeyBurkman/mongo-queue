@@ -132,10 +132,10 @@ Immediately invoke the clean up task to remove records older than
 _maxRecordAge_. If this cleanup is already running then this has no effect.
 Accepts a callback, or returns a promise to indicate completion.
 
-### `queue.resetRecords(recordIDs)`
+### `queue.resetRecords(recordIDs[, callback])`
 Resets records to their initial received state, and they will be ready to proccess immediately.
 This is useful for reprocessing certain previously-failed records, after the issue causing them to
-fail has been resolved. `records` is an array of ID strings, representing the `_id` ObjectIds.
+fail has been resolved. `records` is an array of either ID strings, or ObjectIds.
 
 ## Skipping records
 The mongoQueue function has a `skip(backoffTime)` function attached to it, which can be used like so:
