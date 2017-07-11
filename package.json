@@ -1,6 +1,6 @@
 {
   "name": "mongo-queue",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Use mongo as a persistent queue",
   "main": "lib/index.js",
   "scripts": {
@@ -12,8 +12,7 @@
   "dependencies": {
     "bluebird": "~3.4.6",
     "cron-master": "~0.3.0",
-    "mongodb": "~2.1.21",
-    "ramda": "^0.23.0"
+    "mongodb": "~2.1.21"
   },
   "devDependencies": {
     "eslint": "~3.18.0",
@@ -26,6 +25,7 @@
     "prettier": "~1.2.2",
     "prettier-eslint-cli": "~3.4.2",
     "proxyquire": "0.5.3",
+    "ramda": "^0.23.0",
     "sinon": "~1.17.2",
     "sinon-as-promised": "~4.0.2"
   },
