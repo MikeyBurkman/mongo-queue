@@ -27,3 +27,4 @@ interface IQueue<T> {
 }
 
 declare function createQueue<T>(opts: IQueueOpts<T>): IQueue<T>;
+export = createQueue;
