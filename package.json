@@ -1,6 +1,6 @@
 {
   "name": "mongo-queue",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Use mongo as a persistent queue",
   "main": "lib/index.js",
   "scripts": {
@@ -36,6 +36,7 @@
     "type": "git",
     "url": "git+https://github.com/MikeyBurkman/mongo-queue.git"
   },
+  "typings": "mongo-queue.d.ts",
   "author": "MikeyBurkman",
   "license": "MIT",
   "bugs": {
