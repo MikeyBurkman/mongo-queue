@@ -3,17 +3,25 @@ declare module 'mongo-queue' {
 
   import { ObjectID } from 'mongodb';
 
+  interface Record<T> {
+    _id: ObjectID;
+    receivedDate: Date;
+    status: 'received'|'processed'|'failed'|'skipped'|'notified'|'notifyFailure';
+    available: Date;
+    data: T;
+  };
+
   interface InitOpts<T> {
     mongoUrl: string;
     collectionName: string;
     processCron: string;
-    onProcess: (record: T) => Promise<any> | undefined;
+    onProcess: (record: Record<T>) => Promise<any> | undefined;
     cleanupCron?: string;
     batchSize?: number;
     maxRecordAge?: number;
     retryLimit?: number;
     backoffMs?: number;
-    onFailure?: (record: T) => Promise<any> | undefined;
+    onFailure?: (record: Record<T>) => Promise<any> | undefined;
   }
 
   interface Identifiable {
@@ -21,7 +29,7 @@ declare module 'mongo-queue' {
   }
 
   interface Queue<T> {
-    enqueue: (record: T) => Promise<T&Identifiable>;
+    enqueue: (item: T) => Promise<T&Identifiable>;
     processNextBatch: () => Promise<void>;
     cleanup: () => Promise<void>;
     resetRecords: (recordIDs: Array<string>) => Promise<void>;
