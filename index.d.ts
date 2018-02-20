@@ -9,7 +9,7 @@ declare module 'mongo-queue' {
     status: 'received'|'processed'|'failed'|'skipped'|'notified'|'notifyFailure';
     available: Date;
     data: T;
-  };
+  }
 
   interface InitOpts<T> {
     mongoUrl: string;
@@ -21,7 +21,9 @@ declare module 'mongo-queue' {
     maxRecordAge?: number;
     retryLimit?: number;
     backoffMs?: number;
+    backoffCoefficient?: number;
     onFailure?: (record: Record<T>) => Promise<any> | undefined;
+    continueProcessingOnError?: boolean;
   }
 
   interface Identifiable {
