@@ -15,14 +15,14 @@ declare module 'mongo-queue' {
     mongoUrl: string;
     collectionName: string;
     processCron: string;
-    onProcess: (record: Record<T>) => Promise<any> | undefined;
+    onProcess: (record: Record<T>) => PromiseLike<any> | undefined;
     cleanupCron?: string;
     batchSize?: number;
     maxRecordAge?: number;
     retryLimit?: number;
     backoffMs?: number;
     backoffCoefficient?: number;
-    onFailure?: (record: Record<T>) => Promise<any> | undefined;
+    onFailure?: (record: Record<T>) => PromiseLike<any> | undefined;
     continueProcessingOnError?: boolean;
   }
 
@@ -31,10 +31,10 @@ declare module 'mongo-queue' {
   }
 
   interface Queue<T> {
-    enqueue: (item: T) => Promise<T&Identifiable>;
-    processNextBatch: () => Promise<void>;
-    cleanup: () => Promise<void>;
-    resetRecords: (recordIDs: Array<string>) => Promise<void>;
+    enqueue: (item: T) => PromiseLike<T&Identifiable>;
+    processNextBatch: () => PromiseLike<void>;
+    cleanup: () => PromiseLike<void>;
+    resetRecords: (recordIDs: Array<string>) => PromiseLike<void>;
   }
 
   interface InitFn {
