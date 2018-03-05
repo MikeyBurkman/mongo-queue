@@ -17,6 +17,10 @@ declare module 'mongo-queue' {
       data: T;
     }
 
+    export interface RecordHasFailed {
+      failureReason: string;
+    }
+
     export interface InitOpts<T> {
       mongoUrl: string;
       collectionName: string;
@@ -28,7 +32,7 @@ declare module 'mongo-queue' {
       retryLimit?: number;
       backoffMs?: number;
       backoffCoefficient?: number;
-      onFailure?: (record: Record<T>) => PromiseLike<any> | undefined;
+      onFailure?: (record: Record<T>&RecordHasFailed) => PromiseLike<any> | undefined;
       continueProcessingOnError?: boolean;
     }
 
