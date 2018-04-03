@@ -48,7 +48,7 @@ declare module 'mongo-queue' {
     }
 
     export const skip: (delayMs: number) => any;
-    export const fail: (err: Error) => any;
+    export const fail: (err: Error|string) => any;
   }
 
 }
